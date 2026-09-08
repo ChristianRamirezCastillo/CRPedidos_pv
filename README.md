@@ -37,12 +37,13 @@ Aplicación web Fullstack moderna para la gestión operativa y control de pedido
 La solución implementa una **Arquitectura Limpia (Clean Architecture)** con estricta inversión de dependencias:
 
 ```
-src/
-├── Domain/          # Núcleo del dominio: Entidades (Pedido, Usuario), Enums (EstadoPedido), Interfaces
-├── Application/     # Casos de uso: DTOs, Mapeos, Interfaces de servicios (IAuthService, IPedidoService)
-├── Infrastructure/  # Implementaciones: EF Core AppDbContext, Repositorios, Servicios JWT, BCrypt
+cr-backend/
 ├── Api/             # Presentación: Controladores (AuthController, PedidosController), Middlewares, Program.cs
-└── Scripts/         # Scripts SQL de inicialización e idempotencia (init.sql)
+├── Application/     # Casos de uso: DTOs, Mapeos, Interfaces de servicios (IAuthService, IPedidoService)
+├── Domain/          # Núcleo del dominio: Entidades (Pedido, Usuario), Enums (EstadoPedido), Interfaces
+├── Infrastructure/  # Implementaciones: EF Core AppDbContext, Repositorios, Servicios JWT, BCrypt
+├── Scripts/         # Scripts SQL de inicialización e idempotencia (init.sql)
+└── CR.PedidosApi.sln# Solución de backend
 ```
 
 ### Patrones y Principios Aplicados:
@@ -86,10 +87,10 @@ Tienes dos alternativas para inicializar la base de datos:
 * **Alternativa A (Automática - Recomendada):** Al iniciar la API, el contexto de EF Core aplica las migraciones pendientes y el seeder de usuarios automáticamente (`db.Database.Migrate()`).
 * **Alternativa B (Script SQL Idempotente):** Ejecutar en SQL Server Management Studio o Azure Data Studio el archivo:
   ```bash
-  src/Scripts/init.sql
+  cr-backend/Scripts/init.sql
   ```
 
-> **Cadena de conexión:** Modifica `src/Api/appsettings.json` según tu instancia de SQL Server local si es necesario.
+> **Cadena de conexión:** Modifica `cr-backend/Api/appsettings.json` según tu instancia de SQL Server local si es necesario.
 
 ### 2️⃣ Backend (.NET 9 Web API)
 
@@ -101,17 +102,17 @@ dotnet restore
 dotnet build
 
 # Iniciar la API
-cd src/Api
+cd cr-backend/Api
 dotnet run
 ```
 
-* **Swagger UI interactivo:** `https://localhost:7001/swagger` (o `http://localhost:5000/swagger`)
+* **Swagger UI interactivo:** `https://localhost:7023/swagger` (o `http://localhost:5130/swagger`)
 
 ### 3️⃣ Frontend (React + Vite + Tailwind)
 
 ```bash
 # Abrir una nueva terminal y navegar al frontend
-cd cr-pedidos-frontend
+cd cr-frontend
 npm install
 npm run dev
 ```
@@ -153,15 +154,16 @@ CR_PedidosApi.postman_collection.json
 ## 📁 Estructura del Proyecto
 
 ```text
-├── CR.PedidosApi.sln                    # Solución .NET 9
+├── CR.PedidosApi.sln                    # Solución .NET 9 raíz
 ├── CR_PedidosApi.postman_collection.json # Colección Postman con scripts automáticos
 ├── README.md                           # Documentación oficial de entrega
 ├── RETO_TECNICO.md                     # Enunciado original de la prueba técnica
-├── src/                                # Código fuente Backend
+├── cr-backend/                         # Código fuente Backend (.NET 9)
 │   ├── Api/                            # Capa Web API (Controllers, Program, Middleware)
 │   ├── Application/                    # Capa Aplicación (DTOs, Interfaces)
 │   ├── Domain/                         # Capa Dominio (Entidades, Interfaces núcleo)
 │   ├── Infrastructure/                 # Capa Infraestructura (EF Core, JWT, BCrypt)
-│   └── Scripts/                        # Scripts SQL de migraciones (init.sql)
-└── cr-pedidos-frontend/                # Código fuente Frontend (React, Vite, Tailwind)
+│   ├── Scripts/                        # Scripts SQL de migraciones (init.sql)
+│   └── CR.PedidosApi.sln               # Solución de backend
+└── cr-frontend/                        # Código fuente Frontend (React 18, Vite, Tailwind 3)
 ```
