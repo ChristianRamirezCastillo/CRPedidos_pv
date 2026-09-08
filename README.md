@@ -97,12 +97,13 @@ Tienes dos alternativas para inicializar la base de datos:
 Compilar y ejecutar la solución:
 
 ```bash
-# Desde la raíz del repositorio
+# Navegar a la carpeta del backend
+cd cr-backend
 dotnet restore
 dotnet build
 
 # Iniciar la API
-cd cr-backend/Api
+cd Api
 dotnet run
 ```
 
@@ -154,16 +155,16 @@ CR_PedidosApi.postman_collection.json
 ## 📁 Estructura del Proyecto
 
 ```text
-├── CR.PedidosApi.sln                    # Solución .NET 9 raíz
-├── CR_PedidosApi.postman_collection.json # Colección Postman con scripts automáticos
-├── README.md                           # Documentación oficial de entrega
-├── RETO_TECNICO.md                     # Enunciado original de la prueba técnica
-├── cr-backend/                         # Código fuente Backend (.NET 9)
+├── cr-backend/                          # Código fuente Backend (.NET 9)
 │   ├── Api/                            # Capa Web API (Controllers, Program, Middleware)
 │   ├── Application/                    # Capa Aplicación (DTOs, Interfaces)
 │   ├── Domain/                         # Capa Dominio (Entidades, Interfaces núcleo)
 │   ├── Infrastructure/                 # Capa Infraestructura (EF Core, JWT, BCrypt)
 │   ├── Scripts/                        # Scripts SQL de migraciones (init.sql)
-│   └── CR.PedidosApi.sln               # Solución de backend
-└── cr-frontend/                        # Código fuente Frontend (React 18, Vite, Tailwind 3)
+│   └── CR.PedidosApi.sln               # Solución de .NET 9
+├── cr-frontend/                         # Código fuente Frontend (React 18, Vite, Tailwind 3)
+├── CR_PedidosApi.postman_collection.json# Colección Postman con scripts automáticos
+├── README.md                            # Documentación oficial de entrega
+├── RETO_TECNICO.md                      # Enunciado original de la prueba técnica
+└── .gitignore                           # Exclusiones de control de versiones
 ```
